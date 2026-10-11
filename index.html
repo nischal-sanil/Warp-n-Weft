@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Warp &amp; Weft</title>
+<meta name="description" content="An illustrated, interactive field guide to every term in Modal's GPU Glossary, from the silicon up.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Big+Shoulders+Display:wght@500;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="assets/css/gg.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="tb-btn" id="toc-btn" type="button" aria-label="Contents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span class="tb-lab">Contents</span></button>
+  <a class="brand" href="#top" aria-label="Warp and Weft, back to top"><b>Warp <span>&amp;</span> Weft</b><small>a visual GPU glossary</small></a>
+  <nav class="topbar-ch" aria-label="Chapters">
+    <a href="#device-hardware" data-sec="device-hardware" style="--c:var(--ch-device-hardware)"><i></i>Device hardware</a>
+    <a href="#device-software" data-sec="device-software" style="--c:var(--ch-device-software)"><i></i>Device software</a>
+    <a href="#host-software" data-sec="host-software" style="--c:var(--ch-host-software)"><i></i>Host software</a>
+    <a href="#perf" data-sec="perf" style="--c:var(--ch-perf)"><i></i>Performance</a>
+  </nav>
+  <span class="topbar-sp"></span>
+  <button class="tb-btn" id="search-btn" type="button" aria-label="Search terms"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span class="tb-lab">Search terms</span> <kbd>/</kbd></button>
+  <button class="tb-btn" id="help-btn" type="button" aria-label="Keyboard shortcuts"><kbd>?</kbd></button>
+  <div class="progress" aria-hidden="true"><i></i></div>
+</header>
+
+<section id="top" class="hero" aria-label="An exploded GPU">
+  <div class="hero-fallback" id="hero-fallback">
+    <div class="hero-kicker">An illustrated companion to Modal's GPU Glossary</div>
+    <h1 class="hero-title">Warp <span>&amp;</span> <br>Weft</h1>
+    <p class="hero-sub">Every term in the GPU Glossary, from the silicon up, drawn out and made to move.</p>
+  </div>
+</section>
+
+<div class="layout">
+  <aside class="toc" id="toc" aria-label="Table of contents"></aside>
+  <main id="main" tabindex="-1"></main>
+</div>
+
+<footer class="site-foot">
+  <div>
+    <p><b>Warp &amp; Weft</b> is an independent, unofficial companion to <a href="https://modal.com/gpu-glossary">Modal's GPU Glossary</a>. It is not affiliated with or endorsed by Modal or NVIDIA.</p>
+    <p>The glossary's text is © Modal Labs and its contributors and is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0</a> (<a href="https://github.com/modal-labs/gpu-glossary">source on GitHub</a>). This site adapts that material: entries are rewritten and expanded, code samples are reproduced, and every figure is redrawn as an interactive illustration. Notes marked “Beyond the glossary” add context that is not in the original; notes marked “Checked the math” flag places where we recomputed a figure.</p>
+    <p>Why the name? Warps, the 32-thread groups GPUs schedule together, are named after weaving, “the first parallel thread technology” (Lindholm et al., 2008). The weft is what runs across them.</p>
+  </div>
+</footer>
+
+<dialog class="dlg" id="search-dlg" aria-label="Search terms">
+  <div class="dlg-in">
+    <div class="dlg-h"><h2>Find a term</h2><button class="dlg-x" type="button" aria-label="Close">×</button></div>
+    <div class="dlg-b">
+      <input id="search-in" type="search" role="combobox" aria-controls="search-list" aria-expanded="false" aria-autocomplete="list" placeholder="Try “warp”, “SASS”, “bank conflict”…" autocomplete="off" aria-label="Search glossary terms">
+      <p id="search-count" class="visually-hidden" aria-live="polite"></p>
+      <ul class="sr-list" id="search-list" role="listbox" aria-label="Matching entries"></ul>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="dlg" id="help-dlg" aria-label="Keyboard shortcuts">
+  <div class="dlg-in">
+    <div class="dlg-h"><h2>Getting around</h2><button class="dlg-x" type="button" aria-label="Close">×</button></div>
+    <div class="dlg-b">
+      <table class="keys-t">
+        <tr><td><kbd>→</kbd></td><td>Next entry (the glossary can be read linearly)</td></tr>
+        <tr><td><kbd>←</kbd></td><td>Previous entry, or back to the top of this one</td></tr>
+        <tr><td><kbd>/</kbd> or <kbd>K</kbd></td><td>Search terms by name or abbreviation</td></tr>
+        <tr><td><kbd>?</kbd></td><td>This panel</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Close a panel or the contents drawer</td></tr>
+        <tr><td><kbd>1</kbd>–<kbd>5</kbd></td><td>Zoom level of the 3D GPU at the top, while it is on screen (GPU, GPC, TPC, SM, sub-partition)</td></tr>
+        <tr><td><kbd>E</kbd></td><td>Explode or assemble the 3D GPU, while it is on screen</td></tr>
+        <tr><td>Hover a dotted link</td><td>Preview the linked term without leaving your place</td></tr>
+      </table>
+      <p style="margin-top:14px;font-size:14px;color:var(--ink-2)">Figures with sliders and buttons are live: every number they show is computed from the controls. Animations pause when they scroll out of view.</p>
+    </div>
+  </div>
+</dialog>
+
+<script src="assets/js/terms.js"></script>
+<script src="assets/js/core.js"></script>
+
+<!-- shared diagram components -->
+<script src="assets/js/components/sm.js"></script>
+<script src="assets/js/components/model-map.js"></script>
+<script src="assets/js/components/toolkit.js"></script>
+<script src="assets/js/components/roofline.js"></script>
+<script src="assets/js/components/cycles.js"></script>
+
+<!-- hero: Three.js r128 (UMD) -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="assets/js/hero.js"></script>
+
+<!-- chapters, in glossary order -->
+<script src="assets/js/chapters/intro.js"></script>
+<script src="assets/js/chapters/hw-a.js"></script>
+<script src="assets/js/chapters/hw-b.js"></script>
+<script src="assets/js/chapters/hw-c.js"></script>
+<script src="assets/js/chapters/ds-a.js"></script>
+<script src="assets/js/chapters/ds-b.js"></script>
+<script src="assets/js/chapters/ds-c.js"></script>
+<script src="assets/js/chapters/hs-a.js"></script>
+<script src="assets/js/chapters/hs-b.js"></script>
+<script src="assets/js/chapters/hs-c.js"></script>
+<script src="assets/js/chapters/pf-a.js"></script>
+<script src="assets/js/chapters/pf-b.js"></script>
+<script src="assets/js/chapters/pf-c.js"></script>
+<script src="assets/js/chapters/pf-d.js"></script>
+
+<script>GG.boot();</script>
+</body>
+</html>

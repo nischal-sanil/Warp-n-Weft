@@ -1,0 +1,4 @@
+# local development material (not part of the published project)
+.build/
+node_modules/
+.DS_Store
